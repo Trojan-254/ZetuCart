@@ -18,7 +18,6 @@ const w = require("./routes/wishlist");
 const mpesaRoutes = require('./routes/mpesa');
 const errorHandler = require("./middleware/errorMiddleware");
 const { auth } = require("./middleware/authMiddleware");
-const exphbs = require('express-handlebars');
 const app = express();
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
@@ -39,15 +38,9 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === 'production' }   
-  }));
+    cookie: { secure: process.env.NODE_ENV === 'production' }
+}));
 app.use(pathMiddleware);
-// const expressLayouts = require('express-ejs-layouts');
-// app.use(expressLayouts);
-// app.set('layout', 'layouts/dashboard');
-// app.set('layout extractScripts', true);
-// app.set('layout extractStyles', true);
-// Allow ngrok
 app.use(cors());
 
 // Error handling middleware
@@ -56,36 +49,24 @@ app.use(errorHandler);
 // Flash messages
 app.use(createFlashMiddleware());
 
-// Handle bars
-app.engine('handlebars', exphbs.engine({
-    defaultLayout: 'main',
-    helpers: {
-        eq: function (a, b) { return a === b; }
-    }
-}));
-
-//app.use(express.static('public'));
-app.use(methodOverride('_method'));
-app.use(express.urlencoded({extended: true}));
 // EJS Template engine
-app.set('view engine', 'ejs', 'handlebars');
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 
 // Mongodb connection
-mongoose.connect(process.env.MONGO_URL, {
-    UseNewUrlParser: true,
-    UseUnifiedTopology: true
-}).then(() => {
-   console.log("Connection to database has been established...");
+mongoose.connect(process.env.MONGO_URL)
+.then(() => {
+    console.log("Connection to database has been established...");
 }).catch(err => {
-   console.log(err)
+    console.log(err);
 });
 
 // Routes
-//app.use(auth);
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/products", productRoutes);
@@ -96,7 +77,7 @@ app.use("/orders", orderRoutes);
 app.use("/wishlist", w);
 app.use("/email-verification/:token", authRoutes);
 app.use("/seller/auth", sellerAuthRoutes);
-app.use ("/api/seller", sellerRoutes);
+app.use("/api/seller", sellerRoutes);
 app.use('/order/seller', sellerOrdersRoutes);
 app.use("/seller/dashboard", sellerDashboardRoutes);
 
@@ -112,31 +93,20 @@ app.get("/seller/register", (req, res) => {
     res.render('seller/register');
 });
 
-// app.get('/seller-dash', (req, res) => {
-//     res.redirect('/dashboard');
-// });
-
 app.get('/seller/login', (req, res) => {
     res.render('seller/login');
-})
+});
 
-app.get("/confirmation", (re, res) => {
-   res.sendFile(path.join(__dirname, "views", "confirmation.html"));
+app.get("/confirmation", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "confirmation.html"));
 });
 
 app.get("/login", (req, res) => {
-   res.sendFile(path.join(__dirname, "views", "login.html"));
+    res.sendFile(path.join(__dirname, "views", "login.html"));
 });
 
-
-
-//app.get("/logout", auth, (req, res) => {
-//    res.clearCookie('authToken');
-//    res.redirect('/login');
-//});
-
 app.get("/dashboard", auth, (req, res) => {
-     try {
+    try {
         console.log('User object', req.user);
         res.render('dashboard', { firstname: req.user.firstName });
     } catch (error) {
@@ -145,18 +115,7 @@ app.get("/dashboard", auth, (req, res) => {
     }
 });
 
-// app.get('/dashboard', auth, (req, res) => {
-//     res.render('dashboard/index', {
-//         layout: './layouts/dashboard',
-//         title: 'Dashboard',
-//         path: '/dashboard',
-//         firstname: req.user.firstname
-//     });
-// });
-
-
-
-// Start the fucking damned server
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.clear();
@@ -173,4 +132,3 @@ app.listen(PORT, () => {
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
     `);
 });
-
