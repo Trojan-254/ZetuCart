@@ -322,49 +322,99 @@
 
 
 <!-- Deals Section -->
-<section id="deals" class="py-16 bg-gray-50">
+<section id="deals" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4">
-        <!-- Section Title -->
-        <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-12">Hot Deals</h2>
+        <!-- Section Header -->
+        <div class="flex items-center justify-between mb-10">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900">Hot Deals</h2>
+                <p class="text-gray-500 mt-1">Limited time offers — don't miss out</p>
+            </div>
+            <a href="/products/all" class="text-orange-500 hover:text-orange-600 font-semibold text-sm flex items-center gap-1">
+                View All <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+        </div>
 
         <!-- Deals Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <% const deals = [
-                { 
-                    title: 'Flash Sale', 
-                    discount: '50% OFF', 
-                    ends: '24 Hours Left', 
-                    buttonLabel: 'Shop Now',
-                    bgGradient: 'from-orange-500 to-red-500'
-                },
-                { 
-                    title: 'Clearance', 
-                    discount: '30% OFF', 
-                    ends: '3 Days Left', 
-                    buttonLabel: 'Explore Deals',
-                    bgGradient: 'from-blue-500 to-teal-500'
-                },
-                { 
-                    title: 'Bundle Deal', 
-                    discount: 'Buy 2 Get 1', 
-                    ends: 'Limited Time', 
-                    buttonLabel: 'Get This Deal',
-                    bgGradient: 'from-purple-500 to-pink-500'
-                }
-            ]; %>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <% deals.forEach(deal => { %>
-                <!-- Single Deal Card -->
-                <div class="bg-gradient-to-r <%= deal.bgGradient %> rounded-xl p-8 text-white shadow-lg hover:shadow-2xl transform transition duration-300 ease-in-out hover:scale-105">
-                    <h3 class="text-3xl font-extrabold mb-2 text-shadow-md"><%= deal.title %></h3>
-                    <p class="text-5xl font-bold mb-4 text-shadow-md"><%= deal.discount %></p>
-                    <p class="mb-6 text-sm font-medium"><%= deal.ends %></p>
-                    <button 
-                        class="bg-white text-orange-500 px-8 py-3 rounded-full hover:bg-gray-100 transition font-semibold text-lg">
-                        <%= deal.buttonLabel %>
-                    </button>
+            <!-- Deal 1: Flash Sale -->
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300 group">
+                <div class="relative bg-orange-50 h-48 flex items-center justify-center">
+                    <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Flash Sale</span>
+                    <img src="./images/sandals.jpeg" alt="Flash Sale" class="h-36 w-full object-cover">
                 </div>
-            <% }); %>
+                <div class="p-5">
+                    <p class="text-gray-500 text-xs mb-1 uppercase tracking-wide">Fashion & Footwear</p>
+                    <h3 class="text-gray-900 font-semibold text-base mb-3 leading-snug">Selected items up to 50% off</h3>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-orange-500 font-bold text-xl">From KSh 499</span>
+                        <span class="text-gray-400 line-through text-sm">KSh 999</span>
+                        <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded">-50%</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1 text-orange-500 text-xs font-medium">
+                            <i class="fas fa-clock"></i>
+                            <span>Ends in 24 hrs</span>
+                        </div>
+                        <a href="/products/all" class="bg-orange-500 text-white text-sm px-5 py-2 rounded-full hover:bg-orange-600 transition font-semibold">
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 2: Clearance -->
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300 group">
+                <div class="relative bg-blue-50 h-48 flex items-center justify-center">
+                    <span class="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Clearance</span>
+                    <img src="./images/electronics.jpeg" alt="Clearance" class="h-36 w-full object-cover">
+                </div>
+                <div class="p-5">
+                    <p class="text-gray-500 text-xs mb-1 uppercase tracking-wide">Electronics</p>
+                    <h3 class="text-gray-900 font-semibold text-base mb-3 leading-snug">Clearance on electronics &amp; accessories</h3>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-orange-500 font-bold text-xl">From KSh 1,400</span>
+                        <span class="text-gray-400 line-through text-sm">KSh 2,000</span>
+                        <span class="bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-0.5 rounded">-30%</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1 text-blue-500 text-xs font-medium">
+                            <i class="fas fa-clock"></i>
+                            <span>3 Days Left</span>
+                        </div>
+                        <a href="/products/all" class="bg-orange-500 text-white text-sm px-5 py-2 rounded-full hover:bg-orange-600 transition font-semibold">
+                            Explore
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal 3: Bundle Deal -->
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition duration-300 group">
+                <div class="relative bg-purple-50 h-48 flex items-center justify-center">
+                    <span class="absolute top-3 left-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Bundle Deal</span>
+                    <img src="./images/beauty.jpeg" alt="Bundle Deal" class="h-36 w-full object-cover">
+                </div>
+                <div class="p-5">
+                    <p class="text-gray-500 text-xs mb-1 uppercase tracking-wide">Beauty &amp; Personal Care</p>
+                    <h3 class="text-gray-900 font-semibold text-base mb-3 leading-snug">Buy 2 Get 1 Free on beauty products</h3>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-orange-500 font-bold text-xl">Buy 2 Get 1</span>
+                        <span class="bg-purple-100 text-purple-600 text-xs font-semibold px-2 py-0.5 rounded">Limited</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1 text-purple-500 text-xs font-medium">
+                            <i class="fas fa-tag"></i>
+                            <span>While stocks last</span>
+                        </div>
+                        <a href="/products/all" class="bg-orange-500 text-white text-sm px-5 py-2 rounded-full hover:bg-orange-600 transition font-semibold">
+                            Get Deal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -616,7 +666,7 @@
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope w-6"></i>
-                            info@zetucart.co.ke
+                            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb2b5bdb49ba1beafaeb8baa9aff5b8b4f5b0be">[email&#160;protected]</a>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-clock w-6"></i>
@@ -643,7 +693,7 @@
             </div>
         </div>
     </footer>
-</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
@@ -675,13 +725,4 @@
 
     // Handle window resize
     window.addEventListener('resize', function() {
-        // Close mobile menu and restore body scroll on larger screens
-        if (window.innerWidth >= 768) {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
-});
-   </script>
-</body>
-</html>
+        // Close mobile menu and r
