@@ -75,8 +75,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 
 // Mongodb connection
-mongoose.connect(`mongodb+srv://zetuapplication:${process.env.NEW_DB_PASSWORD}@zetucart.h2ate.mongodb.net/?retryWrites=true&w=majority&appName=zetucart
-`, {
+mongoose.connect(process.env.MONGO_URL, {
     UseNewUrlParser: true,
     UseUnifiedTopology: true
 }).then(() => {
